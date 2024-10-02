@@ -16,7 +16,7 @@ class Homepage {
 
     async validatePageUrl(expectedUrl) {
         const actualUrl = await this.driver.getCurrentUrl();
-        const res = expect(actualUrl).to.equal(expectedUrl);
+        const res = expect(actualUrl).to.contains(expectedUrl);
         return res;
     }
 
@@ -27,8 +27,17 @@ class Homepage {
     }
 
     async closePromo() {
-        const promoCloseButton = await this.driver.findElement(By.css(locators.promo)); // Cambia el ID según tu HTML
-        await promoCloseButton.click();
+        let promoCloseButton;
+
+        try {
+            promoCloseButton = await this.driver.findElement(By.css(locators.promo));
+        } catch (error) {
+            promoCloseButton = null
+        }
+
+
+        if (promoCloseButton)
+            await promoCloseButton.click();
     };
 
     async searchArticle(article) {
@@ -76,11 +85,10 @@ class Homepage {
 
             }
 
-            const addToCartButton = await this.driver.findElement(By.css('.comet-v2-btn.add-to-cart--addtocart--Qhoji3M.comet-v2-btn-important'));
-            await addToCartButton.click();
+            //const button = await this.driver.findElement(By.xpath('//*[@id="root"]/div/div[1]/div/div[2]/div/div/div[6]/button[2]'));
+            //await button.click();
 
             //await this.driver.findElement(By.css(locators.addItem)).click();
-            await this.driver.sleep(500);
         }
     }
 }

@@ -9,7 +9,7 @@ const locators = {
 
 const data = {
   baseUrl: "https://es.aliexpress.com/",
-  itemToSearch: ["Humidificador"]
+  itemToSearch: ["Humidificador","Control"]
 };
 
 module.exports = { locators, data };

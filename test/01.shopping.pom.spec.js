@@ -43,8 +43,6 @@ describe("Add products to shopping cart - POM, Before() and After() hooks", func
                 this.timeout(2000);
             })
 
-            
-
         }
     });
 });

@@ -64,9 +64,12 @@ class Homepage {
             const randomIndex = Math.floor(Math.random() * items.length);
             await items[randomIndex].click();
 
-            let buttonMore;
-
             await this.driver.sleep(500);
+
+            const windows = await this.driver.getAllWindowHandles();
+            await this.driver.switchTo().window(windows[windows.length - 1]);
+
+            let buttonMore;
 
             try {
                 buttonMore = await this.driver.findElement(By.css(locators.moreItems));
@@ -82,14 +85,17 @@ class Homepage {
                     await this.driver.findElement(By.css(locators.moreItems)).click();
                     await this.driver.sleep(500);
                 }
-
             }
 
-            //const button = await this.driver.findElement(By.xpath('//*[@id="root"]/div/div[1]/div/div[2]/div/div/div[6]/button[2]'));
-            //await button.click();
+            const addToCartButton = await this.driver.findElement(By.css(locators.addItem));
+            await addToCartButton.click();
 
-            //await this.driver.findElement(By.css(locators.addItem)).click();
+            await this.driver.sleep(500);
+
+            await this.driver.close();
+            await this.driver.switchTo().window(windows[0]);
         }
     }
+
 }
 module.exports = Homepage;
